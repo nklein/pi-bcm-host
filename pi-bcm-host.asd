@@ -15,11 +15,3 @@
     (funcall (symbol-function (find-symbol (symbol-name :run-all-tests)
                                            test-package)))))
 
-(asdf:defsystem #:pi-bcm-host-test
-    :author "Patrick Stein <pat@nklein.com>"
-    :license "Public Domain"
-    :depends-on (#:pi-bcm-host #:fiveam)
-    :components
-    ((:module "test"
-      :components ((:file "package")
-                   (:file "bcm-host" :depends-on ("package"))))))
