@@ -3,15 +3,12 @@
     :author "Patrick Stein <pat@nklein.com>"
     :license "Public Domain"
     :depends-on (#:cffi)
+    :in-order-to ((asdf:test-op (asdf:load-op :pi-bcm-host-test)))
+    :perform (asdf:test-op (o c)
+               (uiop:symbol-call :pi-bcm-host-test :run-all-tests))
     :components
     ((:module "src"
       :components ((:file "package")
-                   (:file "bcm-host" :depends-on ("package"))))))
-
-(defmethod asdf:perform ((op asdf:test-op)
-                         (system (eql (asdf:find-system :pi-bcm-host))))
-  (let ((test-package :pi-bcm-host-test))
-    (asdf:load-system test-package)
-    (funcall (symbol-function (find-symbol (symbol-name :run-all-tests)
-                                           test-package)))))
+                   (:file "bcm-host" :depends-on ("package"))
+                   (:file "library" :depends-on ("package"))))))
 
